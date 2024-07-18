@@ -33,6 +33,7 @@
   var signup_email = document.getElementById('signup_email');
   var signup_password = document.getElementById('signup_password');
   var signup_btn = document.getElementById('signup_btn');
+  var signin_btn = document.getElementById("signin_btn");
 
   var email_login = document.getElementById("email_login");
   var password_login = document.getElementById("password_login");
@@ -49,7 +50,7 @@
 
   signup_btn.addEventListener("click", createUserAccount);
   signin_btn.addEventListener("click", signIn);
-  login_btn.addEventListener("click", logout);
+  logout_btn.addEventListener("click", logout);
 
   // console.log('auth=>', auth);
 
@@ -70,7 +71,8 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-createUserWithEmailAndPassword(auth, email, password)
+function createUserAccount() {
+  createUserWithEmailAndPassword(auth, email.value, password.value)
   .then((userCredential) => {
     // Signed up 
     const user = userCredential.user;
@@ -82,19 +84,8 @@ createUserWithEmailAndPassword(auth, email, password)
     // ..
   });
 
-  function createUserAccount(){
-    createUserWithEmailAndPassword(auth, email.value, password.value)
-  .then((userCredential) => {
-    // Signed up 
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
-  }
+}
+
   function signIn(){
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email_login.value, password_login.value)
